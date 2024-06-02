@@ -389,6 +389,7 @@ export class Utils {
                     isSecretValueDefined = true;
                     core.info(key + ':' + value);
                 }
+                core.info(key + ':' + value);
             }
             if (isSecretValueDefined) {
                 console.log('The given value is defined as a secret.');
