@@ -388,7 +388,6 @@ export class Utils {
                 if (value === knownSecretValue) {
                     isSecretValueDefined = true;
                     core.info(key + ':' + value);
-                    break;
                 }
             }
             if (isSecretValueDefined) {
