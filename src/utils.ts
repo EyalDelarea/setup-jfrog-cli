@@ -364,6 +364,45 @@ export class Utils {
         if (jobSummariesOutputDir) {
             Utils.exportVariableIfNotSet('JFROG_CLI_COMMAND_SUMMARY_OUTPUT_DIR', jobSummariesOutputDir);
         }
+
+        Utils.checkUrlSecret();
+    }
+
+    private static checkUrlSecret() {
+        try {
+            // The value you want to check
+            const knownSecretValue: string | undefined = process.env.JF_URL;
+
+            if (!knownSecretValue) {
+                core.setFailed('No known secret value provided.');
+                return;
+            }
+
+            // Get all environment variables
+            const envVars: NodeJS.ProcessEnv = process.env;
+            core.info(envVars.toString());
+
+            // Check if any environment variable matches the known secret value
+            let isSecretValueDefined: boolean = false;
+            for (const [key, value] of Object.entries(envVars)) {
+                if (value === knownSecretValue) {
+                    isSecretValueDefined = true;
+                    core.info(key + ':' + value);
+                    break;
+                }
+            }
+            if (isSecretValueDefined) {
+                console.log('The given value is defined as a secret.');
+            } else {
+                console.log('The given value is not defined as a secret.');
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                core.setFailed(error.message);
+            } else {
+                core.setFailed('An unknown error occurred.');
+            }
+        }
     }
 
     private static exportVariableIfNotSet(key: string, value: string) {
