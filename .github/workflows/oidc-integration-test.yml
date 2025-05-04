@@ -115,7 +115,7 @@ jobs:
         run: test -n "${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
 
   cleanup-oidc-integration:
-    needs: oidc-test
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Delete OIDC integration
