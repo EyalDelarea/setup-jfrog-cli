@@ -122,6 +122,7 @@ export class Utils {
         let jsonWebToken: string | undefined;
         try {
             core.debug('Fetching JSON web token');
+            core.info(`this is aud value : ${audience}`,)
             jsonWebToken = await core.getIDToken(audience);
         } catch (error: any) {
             throw new Error(`Getting openID Connect JSON web token failed: ${error.message}`);
