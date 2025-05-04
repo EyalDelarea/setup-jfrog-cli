@@ -114,12 +114,12 @@ jobs:
         shell: bash
         run: test -n "${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
 
-  cleanup-oidc-integration:
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete OIDC integration
-        shell: bash
-        run: |
-          curl -X DELETE "${{ secrets.JFROG_PLATFORM_URL }}/access/api/v1/oidc/${{ needs.generate-oidc-integration.outputs.oidc_provider_name }}" \
-            -H "Authorization: Bearer ${{ secrets.JFROG_PLATFORM_RT_TOKEN }}"
+#  cleanup-oidc-integration:
+#    if: always()
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Delete OIDC integration
+#        shell: bash
+#        run: |
+#          curl -X DELETE "${{ secrets.JFROG_PLATFORM_URL }}/access/api/v1/oidc/${{ needs.generate-oidc-integration.outputs.oidc_provider_name }}" \
+#            -H "Authorization: Bearer ${{ secrets.JFROG_PLATFORM_RT_TOKEN }}"
